@@ -60,12 +60,13 @@ export async function POST(req) {
             token
         });
 
-        response.cookies.set("UPTO_BC_TOKEN", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV !== "development",
-            maxAge: 7 * 24 * 60 * 60,
-            path: "/",
-        });
+      response.cookies.set("UPTO_BC_TOKEN", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV !== "development",
+  sameSite: "None",  // <== REQUIRED for cross-domain cookies
+  maxAge: 7 * 24 * 60 * 60,
+  path: "/",
+});
 
         return response;
 
